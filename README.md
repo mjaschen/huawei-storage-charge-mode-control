@@ -4,7 +4,7 @@ This script allows you to control the battery charge mode of Huawei LUNA2000 bat
 
 ## Requirements
 
-- Python 3.9+
+- Python 3.10+
 
 ## Installation
 
