@@ -21,7 +21,7 @@ This script allows you to control the battery charge mode of Huawei LUNA2000 bat
 # disable storage charge from grid
 ./disable.sh
 # use the script directly
-python ac-charge.py --ip 10.0.1.2 --inverter 16 on
+python ac_charge.py --ip 10.0.1.2 --inverter 16 on
 # online help
-python ac-charge.py -h
+python ac_charge.py -h
 ```

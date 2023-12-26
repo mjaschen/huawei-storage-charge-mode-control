@@ -19,4 +19,4 @@ fi
 source .env
 source venv/bin/activate
 
-python ac-charge.py --ip "$IP_ADDRESS" --inverter "$INVERTER_ID" off
+python ac_charge.py --ip "$IP_ADDRESS" --inverter "$INVERTER_ID" off
