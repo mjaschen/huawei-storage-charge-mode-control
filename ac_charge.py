@@ -7,6 +7,7 @@ import sys
 import traceback
 from huawei_solar import HuaweiSolarBridge, HuaweiSolarException
 
+
 def valid_ip(ip):
     """Ensure that the argument is a valid IPv4 address."""
     try:
@@ -35,12 +36,12 @@ def valid_inverter(inverter_id):
 
 def parse_arguments():
     """Setup command line arguments."""
-    parser = argparse.ArgumentParser(description='Enable/disable storage charge from AC.')
+    parser = argparse.ArgumentParser(description='Enable/disable storage charge from AC, show status')
     parser.add_argument(
         'state',
         type=str,
-        choices=['on', 'off'],
-        help='State to set (on=allow charging from AC/off=disallow charging from AC)'
+        choices=['on', 'off', 'status'],
+        help='State to set (on=allow charging from AC/off=disallow charging from AC/status=show current state)'
     )
     parser.add_argument(
         '--ip',
@@ -74,13 +75,22 @@ def parse_arguments():
 
 async def main(args):
     """Set the Modbus register to enable/disable storage charge from AC."""
-    value = 1 if args.state == 'on' else 0
-
     bridge = await HuaweiSolarBridge.create(
         args.ip,
         args.port,
         args.inverter
     )
+
+    if args.state == 'status':
+        registers = await bridge.update_configuration_registers()
+        if registers['storage_charge_from_grid_function'].value:
+            print("Storage charge from AC is currently enabled")
+        else:
+            print("Storage charge from AC is currently disabled")
+
+        return
+
+    value = 1 if args.state == 'on' else 0
 
     await bridge.set("storage_charge_from_grid_function", value)
 
