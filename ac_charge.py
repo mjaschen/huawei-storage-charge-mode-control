@@ -36,12 +36,15 @@ def valid_inverter(inverter_id):
 
 def parse_arguments():
     """Setup command line arguments."""
-    parser = argparse.ArgumentParser(description='Enable/disable storage charge from AC, show status')
+    parser = argparse.ArgumentParser(
+        description='Enable/disable storage charge from AC, show status'
+    )
     parser.add_argument(
         'state',
         type=str,
         choices=['on', 'off', 'status'],
-        help='State to set (on=allow charging from AC/off=disallow charging from AC/status=show current state)'
+        help='State to set (on=allow charging from AC/off='
+             'disallow charging from AC/status=show current state)'
     )
     parser.add_argument(
         '--ip',
